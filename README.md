@@ -1,10 +1,10 @@
-# Tarefas-Definidas---Sistema-de-gerencia-de-tarefas-desktoparefas Definidas - Sistema de gerencia de tarefas desktop👋 Olá , eu sou o Samuel Souto dos Santos / @sassa-afk 👀 ..
+👋 Olá , eu sou o Samuel Souto dos Santos / @sassa-afk 👀 ..
 - Tenho interesse na área de desenvolvimento de software 🌱
 - Atualmente estudo e criando projetos universitários em linguagens de programação introduzida em meu curso S.I, no qual me encontro no quinto período.
 - 📫 Você consegue chegar até mim através do email samuelsouto21@gmail.com .
-  
-****Tarefas Definidas - Sistema de gerencia de tarefas desktop****
-A aplicação foi construída nos ambientes de desenvolvimento IntelliJ IDEA e Visual Studio, utilizando Java para desenvolver a interface das plataformas desktop e mobile.
+
+# Tarefas-Definidas---Sistema-de-gerencia-de-tarefas-desktop
+ A aplicação foi construída nos ambientes de desenvolvimento IntelliJ IDEA e Visual Studio, utilizando Java para desenvolver a interface das plataformas desktop e mobile.
 O backend foi implementado com Node.js, responsável pela construção de APIs (GET e POST), utilizando o token JWT para autenticação, garantindo um nível básico de segurança no acesso às APIs.
 O armazenamento dos dados gerados pelos usuários foi realizado no banco de dados PostgreSQL.
 
