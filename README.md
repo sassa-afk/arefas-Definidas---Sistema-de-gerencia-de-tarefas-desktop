@@ -7,7 +7,11 @@
 A aplicação foi construída nos ambientes de desenvolvimento IntelliJ IDEA e Visual Studio, utilizando Java para desenvolver a interface das plataformas desktop e mobile.
 O backend foi implementado com Node.js, responsável pela construção de APIs (GET e POST), utilizando o token JWT para autenticação, garantindo um nível básico de segurança no acesso às APIs.
 O armazenamento dos dados gerados pelos usuários foi realizado no banco de dados PostgreSQL.
+
+---
+
 **Tecnologia Utilizada**
+
 *Docker*
 - Imagem Server Node.js: Configurada para hospedar o backend da aplicação.
 - Imagem DBA PostgreSQL: Configurada para armazenar e gerenciar os dados da aplicação.
@@ -23,17 +27,37 @@ O armazenamento dos dados gerados pelos usuários foi realizado no banco de dado
 - BIblioteca javax swing e awt  : Para construção da plataforma desktop
 - Biblioteca  org.json e java.net : Receber e enviar dados da api e converter dados json
 - Biblioteca java androidx ,java android e XML : Para construção da aplicação mobile
-**Diagrama**
+
+---
+<br>
+
+**Diagrama dba**
+
+<br>
+
+
 ![image](https://github.com/user-attachments/assets/ba20dbb1-473e-40f7-b91d-cf9576e85219)
+
+ ---
  
 **Diagrama de Relacionamento dba**
+
 ![image](https://github.com/user-attachments/assets/1cf9901f-9d51-4c8b-8bf3-495286aa1ebc)
+
+---
+
+
 **Diagrama de caso de uso**
+
+
 ![image](https://github.com/user-attachments/assets/03ccbf71-4dc6-4ee2-99c5-b9ced4c9d992)
 
 > https://viewer.diagrams.net/index.html?tags=%7B%7D&lightbox=1&target=blank&highlight=00003B&edit=_blank&layers=1&nav=1#G1mJipDggwUCi1kfUWMAOTMFpVqiVJMflz#%7B%22pageId%22%3A%22Vmw0A1_i2rNyL6fyl7KQ%22%7D
 
- 
+> OBS :
+> Aplicação será composta por 2 usuaários um de adm (gerenciador) e outro agente(executador das tarefas destinada ao mesmo).  
+
+ ---
 **Codigos SQL utilizados**
 
 CREATE TABLE acessos (
@@ -92,7 +116,10 @@ CREATE TABLE comentarios (
     FOREIGN KEY (taref_id_fk) REFERENCES tarefas(taref_id),  
     FOREIGN KEY (id_user_comentado) REFERENCES acessos(user_id)  
 );
+
+---
 ***Codigo e funções Node js / ROTAS APIS*** 
+
 Até o momento foram criado dados de verificação e funcionalidades refrente a comunicação de apis do servidor ao painel adm 
 >**function (req, res, next)**
 >- funçao js de autenticação para validar token os nas apis GET e POST 
@@ -337,17 +364,86 @@ Retorno :
 >>    `{  
 >>        "message": "Erro no servidor"  
 >>    }`
->>
+
+
+---
+***Diagrama caso de clase  / aplicação java / desktop***
+
+- Segue detalhes sobre as classes , funções , funcionalidade e relações de classes em java para a criação da aplicação desktop no qual o adm ira definir as taredas
+
+  
+  ![image](https://github.com/user-attachments/assets/aed775ce-ad7a-4fce-980a-463a0003c1ab)
+- https://drive.google.com/file/d/1_GXcIcqJbEhsc9kr4W4dG6xo7ccff90r/view?usp=sharing
+
+![image](https://github.com/user-attachments/assets/f5491c3b-8aa4-4c26-8dcb-cf28ed81ff72)
+
+![image](https://github.com/user-attachments/assets/ba98d1b4-31ff-47f4-8284-eb7093e8ffa5)
+
+---
+
+***Diagrama caso de classe / mobile em java / android***
+
+- Aqui será adicionado no futuro detalhes sobre as classes , funções , funcionalidade e relações de classes em java para a criação da aplicação mobile onde o usuario agente ira responder e executar as tarefas .
+
+---
+
+## **Requisitos Funcionais**
+
+### **Geral**
+- Todos os acessos ao sistema passarão por autenticação com **usuário** e **senha**.
+- Os usuários poderão:
+  - Responder tarefas, visualizar execuções e acompanhar seu progresso.
+  - Atualizar dados do perfil, incluindo senha, telefone, e-mail e foto de identificação.
+- Apenas acessos **ativos** poderão realizar login. Acessos **desativados** serão bloqueados.
+
+### **Acesso de Usuário Administrador (Desktop)**
+- Apenas usuários com perfil **administrador** poderão acessar o painel desktop.
+- O painel desktop será dividido em módulos:
+  1. **Perfil:**
+     - Permite ao administrador editar suas informações pessoais, como foto, dados de cadastro e senha.
+  2. **Acessos:**
+     - Gerencia todos os usuários (administradores e agentes):
+       - Filtrar usuários por tipo de acesso.
+       - Visualizar, editar ou excluir acessos.
+       - Inserir novos acessos (administradores ou agentes).
+  3. **Tarefas:**
+     - Permite ao administrador:
+       - Acompanhar o progresso das tarefas atribuídas aos agentes.
+       - Criar novas tarefas e demandas para os agentes.
+       - Gerar relatórios sobre o status das tarefas.
+
+---
+
+## **Requisitos Não Funcionais**
+
+### **Geral**
+- O sistema utilizará um **servidor web** centralizado, desenvolvido em **Node.js** com APIs RESTful.
+- Após autenticação, os usuários receberão um **token de acesso** vinculado à sessão, utilizado para operações de edição e consulta via APIs.
+- Todos os dados gerados no sistema serão armazenados em um **banco de dados relacional**.
+
+### **Acesso de Usuário Administrador (Desktop)**
+- A aplicação desktop foi desenvolvida em **Java** para garantir segurança e exclusividade:
+  - Apenas máquinas autorizadas poderão acessar o serviço.
+  - Operações de visualização e edição de dados serão realizadas exclusivamente via chamadas às APIs.
+- O sistema desktop terá acesso direto às APIs para operações críticas, como criação e atualização de campos no banco de dados.
+
+---
+
+## **Observações**
+1. **Painel Mobile (Agente - Android):**
+   - Requisitos funcionais e não funcionais para o painel de agentes ainda estão em desenvolvimento.
+   - Quando definidos, serão incluídos nesta documentação.
+
+2. **Servidor e Banco de Dados:**
+   - Todas as funcionalidades dependem de integrações com as APIs centralizadas.
+   - O banco de dados foi projetado para armazenar dados de forma eficiente e segura, suportando alto volume de acessos simultâneos.
+
+---
+
+
 >> **Implementações futuras**
 >> - Sera adicionado rotas e funcionalidades para criações dos chamados
 >> - As apis de filtro de acessos teram funcionalidade para retornar acessos especificos de usuarios e agentes (GET /filtroGeralAgente ,  GET/filterIdAgenteCriado ,  GET /filterLoginAgentes)
 >> - Usuarios desativados não poderam atualizar dados com status falso
 >> - Adicionar demais rotas para a aplicação mobile 
-
-***Diagrama caso de clase  / aplicação java / desktop***
-
-- Aqui segue detalhes sobre as classes , funções e funcionalidade
-
-- ![image](https://github.com/user-attachments/assets/aed775ce-ad7a-4fce-980a-463a0003c1ab)
-- https://drive.google.com/file/d/1_GXcIcqJbEhsc9kr4W4dG6xo7ccff90r/view?usp=sharing
 
