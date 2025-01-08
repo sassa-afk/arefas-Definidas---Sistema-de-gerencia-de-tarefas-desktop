@@ -3,16 +3,46 @@
 - Atualmente estudo e criando projetos universitários em linguagens de programação introduzida em meu curso S.I, no qual me encontro no quinto período.
 - 📫 Você consegue chegar até mim através do email samuelsouto21@gmail.com .
 
-# Tarefas-Definidas---Sistema-de-gerencia-de-tarefas-desktop
- A aplicação foi construída nos ambientes de desenvolvimento IntelliJ IDEA e Visual Studio, utilizando Java para desenvolver a interface das plataformas desktop e mobile.
-O backend foi implementado com Node.js, responsável pela construção de APIs (GET e POST), utilizando o token JWT para autenticação, garantindo um nível básico de segurança no acesso às APIs.
+# Tarefas-Definidas - Sistema de gerencia de tarefas
+
+ Tarefas Definidas é um sistema simples e eficiente para o gerenciamento de demandas e atividades entre dois tipos de usuários: administradores (adms) e agentes. O objetivo principal da aplicação é facilitar a definição, distribuição e execução de tarefas no dia a dia.
+
+- Administradores (adms): são responsáveis pela criação, organização e atribuição de tarefas aos agentes, além de gerenciar os usuários do sistema. Seu acesso ocorre por meio de uma plataforma desktop, equipada com ferramentas completas e intuitivas para facilitar a gestão.
+As principais funcionalidades disponíveis para os administradores incluem:
+  - Gerenciamento de Usuários: criar novos usuários (administradores e agentes), editar dados cadastrais e redefinir senhas.
+  - Criação de Tarefas: atribuir tarefas aos agentes com critérios claros e prioridades definidas para a execução, garantindo maior eficiência no fluxo de trabalho.
+
+- Agentes: São responsáveis por receber as tarefas designadas pelos administradores, respondê-las e executá-las. Eles também podem acompanhar o andamento das tarefas e seus indicadores, adicionar observações durante a execução e finalizar os processos.
+Os agentes terão acesso à plataforma móvel desenvolvida para dispositivos Android. Nela, poderão:
+  - Alterar e editar informações de contato e a foto de perfil.
+  - Acompanhar suas tarefas e registrar respostas.
+  - Consultar informações sobre seus indicadores, como o número de tarefas em aberto, finalizadas, em atendimento, entre outros.
+
+A aplicação foi desenvolvida nos ambientes de desenvolvimento IntelliJ IDEA e Visual Studio, utilizando Java para a interface das plataformas desktop e mobile.
+O back-end foi implementado em Node.js, responsável pela construção de APIs (GET e POST), utilizando o token JWT para autenticação, garantindo um nível básico de segurança no acesso às APIs.
 O armazenamento dos dados gerados pelos usuários foi realizado no banco de dados PostgreSQL.
+
+---
+**Breve preview**
+
+- Painel de agente :<br>
+
+**Painel de login**
+  ![of11](https://github.com/user-attachments/assets/af29be18-e477-423f-9edf-69a8e4d95172)
+
+**Painel de perfil**
+  ![Apex_22](https://github.com/user-attachments/assets/594ad26d-e786-40be-9a13-05f91f92f77c)
+
+**Painel de acesso**
+  ![33](https://github.com/user-attachments/assets/888304f1-9060-402d-8c23-65520e746a40)
+**Painel de tarefas**
+  ![Apex_44](https://github.com/user-attachments/assets/dd6b6c0e-607f-4951-9af0-f2ac39d73f19)
 
 ---
 
 **Tecnologia Utilizada**
 
-*Docker*
+- Conteiner Docker para subir imagens do node js e dba postgrea 
 - Imagem Server Node.js: Configurada para hospedar o backend da aplicação.
 - Imagem DBA PostgreSQL: Configurada para armazenar e gerenciar os dados da aplicação.
 *Dependências so servidor Web Node.js*
