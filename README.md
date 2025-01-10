@@ -25,7 +25,7 @@ O armazenamento dos dados gerados pelos usuários foi realizado no banco de dado
 ---
 **Breve preview**
 
-- Painel de agente :<br>
+- Painel de adm :<br>
 
 **Painel de login**
   ![of11](https://github.com/user-attachments/assets/af29be18-e477-423f-9edf-69a8e4d95172)
@@ -37,6 +37,20 @@ O armazenamento dos dados gerados pelos usuários foi realizado no banco de dado
   ![33](https://github.com/user-attachments/assets/888304f1-9060-402d-8c23-65520e746a40)
 **Painel de tarefas**
   ![Apex_44](https://github.com/user-attachments/assets/dd6b6c0e-607f-4951-9af0-f2ac39d73f19)
+
+- Aplicação agente <br>
+ 
+https://github.com/user-attachments/assets/bab28502-9f1d-46f2-9686-2c614993dcfc
+
+https://github.com/user-attachments/assets/2f40b7ff-7619-4975-b3e2-11c0c892d27a
+
+https://github.com/user-attachments/assets/ac98cf67-552c-493c-b6a2-03e8a249d500
+
+https://github.com/user-attachments/assets/243236bc-d96a-466c-a9cc-fe24652e0234
+
+
+
+
 
 ---
 
@@ -62,10 +76,7 @@ O armazenamento dos dados gerados pelos usuários foi realizado no banco de dado
 <br>
 
 **Diagrama dba**
-
-<br>
-
-
+ 
 ![image](https://github.com/user-attachments/assets/ba20dbb1-473e-40f7-b91d-cf9576e85219)
 
  ---
