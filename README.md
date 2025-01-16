@@ -25,7 +25,7 @@ O armazenamento dos dados gerados pelos usuários foi realizado no banco de dado
 ---
 **Breve preview**
 
-- Painel de adm :<br>
+- Painel de adm (Desktop) :<br>
 
 **Painel de login**
   ![of11](https://github.com/user-attachments/assets/af29be18-e477-423f-9edf-69a8e4d95172)
@@ -38,7 +38,7 @@ O armazenamento dos dados gerados pelos usuários foi realizado no banco de dado
 **Painel de tarefas**
   ![Apex_44](https://github.com/user-attachments/assets/dd6b6c0e-607f-4951-9af0-f2ac39d73f19)
 
-- Aplicação agente <br>
+- Aplicação agente (APLICAÇÃO ANDROID MOBILE ) <br>
  
 https://github.com/user-attachments/assets/bab28502-9f1d-46f2-9686-2c614993dcfc
 
@@ -82,8 +82,9 @@ https://github.com/user-attachments/assets/243236bc-d96a-466c-a9cc-fe24652e0234
  ---
  
 **Diagrama de Relacionamento dba**
-
+* Banco tarefasdefinir
 ![image](https://github.com/user-attachments/assets/1cf9901f-9d51-4c8b-8bf3-495286aa1ebc)
+![image](https://github.com/user-attachments/assets/00061b33-f2b7-4234-a548-d4f011f9ebb5)
 
 ---
 
@@ -108,8 +109,11 @@ CREATE TABLE acessos (
     usuario_id_fk INT,
     ativo BOOLEAN NOT NULL,
     tipo_acesso VARCHAR(50) NOT NULL,
+    descricao VARCHAR(400) NOT NULL , 
     FOREIGN KEY (usuario_id_fk) REFERENCES usuarios(id)
 );
+
+
 CREATE TABLE usuarios (
     id SERIAL PRIMARY KEY,                 
     nome VARCHAR(100) NOT NULL,           
@@ -120,6 +124,8 @@ CREATE TABLE usuarios (
     sobrenome VARCHAR(100),               
     foto VARCHAR(255)                    
 );
+
+
 CREATE TABLE tarefas (
     taref_id BIGSERIAL PRIMARY KEY,   
     
@@ -129,12 +135,16 @@ CREATE TABLE tarefas (
     status VARCHAR(100) NOT NULL,  
     titulo VARCHAR(300) NOT NULL,  
     
-    data_tarefa_criada DATE DEFAULT CURRENT_DATE,  
+    data_tarefa_criada TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  
+
     tempo_estimado_fim_tarefa TIMESTAMP NOT NULL,  -- '2024-12-31 23:59:59' padrão de inserção
+    
+    prioridade VARCHAR(50) NOT NULL , 
     
     FOREIGN KEY (id_user_destino_tarefa_fk) REFERENCES acessos(user_id),  
     FOREIGN KEY (id_user_criado_tarefa_fk) REFERENCES acessos(user_id)    
 );
+
 CREATE TABLE tempo_tarefas (
     taref_id BIGSERIAL PRIMARY KEY,
     
@@ -143,10 +153,12 @@ CREATE TABLE tempo_tarefas (
     
     tempo_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,   
     status VARCHAR(100) NOT NULL,
+    prioridade VARCHAR (150) NOT NULL,
     
     FOREIGN KEY (id_tarefa_fk) REFERENCES tarefas(taref_id),   
     FOREIGN KEY (id_user_interacao_fk) REFERENCES acessos(user_id)
 );
+
 CREATE TABLE comentarios (
     id BIGSERIAL PRIMARY KEY,   
     taref_id_fk BIGINT NOT NULL,  
@@ -159,253 +171,10 @@ CREATE TABLE comentarios (
 );
 
 ---
-***Codigo e funções Node js / ROTAS APIS*** 
+***Codigo e funções Node js / ROTAS APIS /Serviço backend*** 
+Foi adotada a arquitetura de API para possibilitar a comunicação entre as interfaces de agente e administrador. As APIs foram desenvolvidas utilizando JavaScript no ambiente Node.js, implementando os métodos POST e GET. A segurança das requisições foi garantida através da validação com assinatura digital JWT (JSON Web Token), gerando um token que assegura a autenticidade e a integridade das transações. Esse processo de validação oferece uma camada adicional de segurança nas operações de busca e inserção de dados no banco de dados do sistema.
 
-Até o momento foram criado dados de verificação e funcionalidades refrente a comunicação de apis do servidor ao painel adm 
->**function (req, res, next)**
->- funçao js de autenticação para validar token os nas apis GET e POST 
->**post /auth**
->> - Usado para autenticar acessos adms atraves do painel desktop
->>  - O confirmando usuario e senha e retornando um token de acesso gerado apos validação das crenciais. 
->> BOdy {<br>
->>    "nome_usuario": "adm",<br>
->>   "senha": "adm"<br>
->> }<br>
-Retorno :  
->> {<br>
->  "auth": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3Vhcmlv",<br>
->>    "user_id": 46,<br>
->>   "ativo": true<br>
->>  }<br> 
->**get /dadosUser**
->> - Usado para retornar dados do agente autenticado no painel
->> - O mesmo é aplicado para identificar quem está logado principalmente meu perfil
->> Passagem de parametro : http:link_api/dadosuser/id: http://LINK_API/dadosUser?id=46
->> Header : x-access-token : token_gerado_apos_autenticar
-Retorno :
->>{
->> "mesage": [{
->>"id": 46,<br>
->>"nome": "Samuel",<br>
->>"email": "samuelsouto21@gmail.com",<br>
->>"data_criacao": "2024-11-11T13:11:00.422Z",<br>
->>"telefone": "34998424800",<br>
->>"cargo": "Desenvolvedor",<br>
->>"sobrenome": "Solto"<br>
->>}
->>]}
->
->**GET /fotoPerfil**
->>Usado para retornar a foto de perfil de um usuário autenticado entodos os modulos e paineis .
->>Se o usuário não possuir uma foto definida ou ocorrer erro, retorna uma imagem padrão.
->>Parâmetros de Query:
->> caminho_foto: ID do usuário (exemplo: /fotoPerfil?caminho_foto=46).
->>
->>Header: x-access-token: Token gerado após autenticação.
->>
->>Retorno:
->>Sucesso (200): A imagem de perfil do usuário autenticado.
->>
->>Erro (400/500): A imagem padrão como fallback.
-> **POST /trocarSenha**  
->> - Usado para trocar a senha do proprio acesso e outros acessos , usado em todos os modulos e paineis .  
->> - O sistema valida se os parâmetros necessários foram fornecidos antes de proceder com a atualização da senha.  
->> Header:  
->> - `x-access-token`: Token gerado após autenticação do usuário.  
->> Parâmetros no Body:  
->> {  
->>  `"user_id"`: "ID do usuário que deseja trocar a senha",  
->>  `"senha"`: "Nova senha para o usuário"  
->> }  
->> Retorno:  
->> - Sucesso (`200`):  
->> `{ "message": "senha editada com sucesso" }`  
->> - Erro (`400`):  
->> `{ "message": "Parâmetros vazios" }`  
->> - Erro (`500`):  
->> `{ "message": "Erro na execução do processo: <detalhes do erro>" }`  
->> - Erro (`401`):  
->> `{ "message": "Usuário ou senha inválidos" }`
->>
->**GET /filtroGeralAgente**   
->> - Usado para retornar informações gerais sobre os usuários e seus acessos atraves do painel de agente .  
->> - Realiza uma consulta no banco de dados para buscar dados do usuário e se o acesso está ativo.  
->>   Header:  
->> - `x-access-token`: Token gerado após autenticação do usuário.  
->>   Parâmetros de Consulta:  
->> - Nenhum.
->> Retorno:  
->> - Sucesso (`200`):  
->>    `{  
->>        "message": [  
->>            {  
->>                "nome_usuario": "nome_do_usuario",  
->>                "id": "ID_do_usuario",  
->>                "nome": "Nome do usuário",  
->>                "ativo": "Status de ativo (true/false)",  
->>                "email": "Email do usuário",  
->>                "data_criacao": "Data de criação da conta do usuário"  
->>            },  
->>            ...  lista
->>        ]  
->>    }`
->> - Erro (`500`):  
->>    `{ "message": "Erro na execução do processo" }`  
->> - Erro (`404`):  
->>    `{ "message": "Usuário não encontrado" }`
-> **GET /filterIdAgenteCriado**  
->> - Usado para filtrar informações de um usuário específico com base no `user_id sua funcionalidade está ativa atraves do painel de agente .    
->> - A API valida se o parâmetro `user_id` foi fornecido corretamente e retorna os dados do usuário.  
->> Parâmetros de Consulta:  
->> - `user_id`: ID do usuário que será buscado (tipo `INT`).
->> Header:  
->> - `x-access-token`: Token gerado após autenticação do usuário.  
->> Retorno:  
->> - Sucesso (`200`): <br>  
->>    `{  <br>
->>        "message": [  <br>
->>            { <br> 
->>                "nome_usuario": "nome_do_usuario",  <br>
->>                "id": "ID_do_usuario",  <br>
->>                "nome": "Nome do usuário",  <br>
->>                "ativo": "Status de ativo (true/false)",  <br> 
->>                "email": "Email do usuário",  <br>
->>                "data_criacao": "Data de criação da conta do usuário",  <br>
->>                "sobrenome": "Sobrenome do usuário",  <br>
->>                "tipo_acesso": "Tipo de acesso do usuário", <br>  
->>                "cargo": "Cargo do usuário",  <br>
->>                "telefone": "Telefone do usuário" <br> 
->>            }  <br>
->>        ]  <br>
->>    }`<br>
->> - Erro (`400`):  
->>    `{ "message": "Insira um valor inteiro" }`  
->> - Erro (`400`):  
->>    `{ "message": "Parametros da requisição invalido" }`  
->> - Erro (`500`):  
->>    `{ "message": "Erro no servidor" }`  
->> - Erro (`404`):  
->>    `{ "message": "Usuário não encontrado" }`
->>
-> **GET /filterLoginAgentes**  
->> - Usado para filtrar informações de um agente com base no `nome_usuario`.  
->> - A API valida se o parâmetro `nome_usuario` foi fornecido corretamente e retorna os dados do agente.  
->> Parâmetros de Consulta:  
->> - `nome_usuario`: Nome de usuário para realizar a busca, função ativa no painel de agente .
->> Header:  
->> - `x-access-token`: Token gerado após autenticação do usuário.
->> Retorno:  
->> - Sucesso (`200`):  <br>
->>    `{  <br>
->>        "message": [ <br>  
->>            {  <br>
->>                "nome_usuario": "nome_do_usuario", <br>  
->>                "id": "ID_do_usuario",  <br>
->>                "nome": "Nome do usuário",  <br>
->>                "ativo": "Status de ativo (true/false)", <br>  
->>                "email": "Email do usuário",  <br>
->>                "data_criacao": "Data de criação da conta do usuário" <br>  
->>            }  <br>
->>        ]  <br>
->>    }`<br>
->> - Erro (`400`):  
->>    `{ "message": "Erro na passagem de parametros" }`  
->> - Erro (`500`):  
->>    `{ "message": "Erro no servidor" }`  
->> - Caso não encontre dados para o usuário:  
->>    `{ "message": null }`
- > **POST /insertAcesso**  
->> - Usado para inserir um novo acesso de usuário no sistema usual no painel de acessos .<br>  
->> - A API valida os parâmetros fornecidos e verifica se o nome de usuário já está registrado antes de inserir o novo usuário no banco de dados.<br>  
->> Parâmetros no Body:<br>  
->> <br>  
->>    `"nome"`: "Nome do usuário",<br>  
->>    `"sobrenome"`: "Sobrenome do usuário",<br>  
->>    `"email"`: "Email do usuário",<br>  
->>    `"telefone"`: "Telefone do usuário",<br>  
->>    `"cargo"`: "Cargo do usuário",<br>  
->>    `"usuario"`: "Nome de usuário para login",<br>  
->>    `"senha"`: "Senha para o usuário",<br>  
->>    `"status"`: "Status do usuário (true/false)",<br>  
->>    `"tipoAcesso"`: "Tipo de acesso (ex: 'adm')"<br>  
->>  }<br>  
->> Header:<br>  
->> - `x-access-token`: Token gerado após autenticação do usuário. <br>  
->> Retorno: <br>  
->> - Sucesso (`200`): <br>  
->>    `{ <br>  
->>        "message": "Processo realizado com sucesso" <br>  
->>    }` <br>  
->> - Erro (`400`): <br>  
->>    `{ <br>  
->>        "error": "Parâmetros inválidos, preencha todos os campos obrigatórios!" <br>  
->>    }` <br>  
->> - Erro (`500`): <br>  
->>    `{ <br>  
->>        "message": "Erro na execução do processo: <detalhes do erro>" <br>  
->>    }` <br>  
->> - Caso o usuário já esteja registrado: <br>  
->>    `{ <br>  
->>        "message": "Usuário <nome_usuario> já registrado no sistema. Utilize outro login." <br>  
->>    }`  
->**POST /updateAcesso**  
->> - Usado para atualizar informações de um usuário ou seu status de acesso. <br>  
->> - A API valida os parâmetros fornecidos e realiza a atualização nas tabelas `usuarios` ou `acessos`, dependendo da coluna a ser alterada. <br>  
->> Parâmetros no Body:  
->> { <br>  
->>    `"coluna"`: "Nome da coluna a ser atualizada" (ex: 'nome', 'sobrenome', 'email', 'telefone', 'cargo', 'status'), <br>  
->>    `"valor"`: "Novo valor para a coluna especificada", <br>  
->>    `"user_id"`: "ID do usuário a ser atualizado" <br>  
->> } <br>  
->> Header: <br>  
->> - `x-access-token`: Token gerado após autenticação do usuário. <br>  
->> Retorno: <br>  
->> - Sucesso (`200`): <br>  
->>    `{ <br>  
->>        "message": "Edição realizada com sucesso" <br>  
->>    }` <br>  
->> - Erro (`400`): <br>  
->>    `{ <br>  
->>        "message": "erro na passagem de parametro" <br>  
->>    }` <br>  
->> - Erro (`500`): <br>  
->>    `{ <br>  
->>        "message": "Erro ao executar o processo no dba <detalhes do erro>" <br>  
->>    }` <br>  
->> - Caso a coluna não seja reconhecida: <br>  
->>    `{ 
->>        "message": "Não foi identificado a coluna <coluna> na tabela de usuarios ou acessos" <br>  
->>    }`
->>   
->**GET /agentesTarefas**  
->> - Usado para filtrar agentes com base no status de atividade (`ativo`) e tipo de acesso (`tipo_acesso`).  
->> - A API valida se ambos os parâmetros foram fornecidos e retorna os dados dos agentes correspondentes.  
->> Parâmetros de Consulta:  
->> - `ativo`: Status de atividade do agente (ex: true/false).  
->> - `tipo_acesso`: Tipo de acesso do agente (ex: 'admin', 'user').  
->> Header:  
->> - `x-access-token`: Token gerado após autenticação do usuário.  
->> Retorno:  
->> - Sucesso (`200`):  
->>    `{  
->>        "message": [  
->>            {  
->>                "id": "ID do usuário",  
->>                "nome": "Nome do usuário",  
->>                "ativo": "Status de ativo (true/false)",  
->>                "sobrenome": "Sobrenome do usuário"  
->>            }  
->>        ]  
->>    }`  
->> - Erro (`400`):  
->>    `{  
->>        "message": "Parametros invalidos"  
->>    }`  
->> - Erro (`500`):  
->>    `{  
->>        "message": "Erro no servidor"  
->>    }`
-
+Além disso, foi criada uma pasta pública dentro do diretório, responsável por gerenciar o envio de arquivos de imagens, como fotos de perfil. Essa funcionalidade foi implementada para ajudar na identificação visual dos usuários, facilitando a distinção entre agentes e administradores.
 
 ---
 ***Diagrama caso de clase  / aplicação java / desktop***
@@ -421,11 +190,16 @@ Retorno :
 ![image](https://github.com/user-attachments/assets/ba98d1b4-31ff-47f4-8284-eb7093e8ffa5)
 
 ---
+***Diagrama de Arquitetura de Software***
 
+![image](https://github.com/user-attachments/assets/aa525fd5-deca-4620-85d9-47116502b329)
+
+
+---
 ***Diagrama caso de classe / mobile em java / android***
+![image](https://github.com/user-attachments/assets/fa2287bb-78fc-4dd6-942c-cb5833ee34e9)
 
-- Aqui será adicionado no futuro detalhes sobre as classes , funções , funcionalidade e relações de classes em java para a criação da aplicação mobile onde o usuario agente ira responder e executar as tarefas .
-
+https://drive.google.com/file/d/17_dhg15zWB3SF4T2c4X0m8JFkCet1Hmg/view?usp=sharing
 ---
 
 ## **Requisitos Funcionais**
@@ -455,36 +229,73 @@ Retorno :
 
 ---
 
-## **Requisitos Não Funcionais**
+# Requisitos Funcionais
 
-### **Geral**
-- O sistema utilizará um **servidor web** centralizado, desenvolvido em **Node.js** com APIs RESTful.
-- Após autenticação, os usuários receberão um **token de acesso** vinculado à sessão, utilizado para operações de edição e consulta via APIs.
-- Todos os dados gerados no sistema serão armazenados em um **banco de dados relacional**.
+1. **Gerenciamento de Usuários (Administradores)**
+   - O sistema deve permitir que os administradores criem, editem e excluam usuários, sejam administradores ou agentes.
+   - O sistema deve permitir que administradores redefinam senhas de usuários.
+   - O sistema deve permitir que administradores visualizem uma lista de todos os usuários cadastrados.
 
-### **Acesso de Usuário Administrador (Desktop)**
-- A aplicação desktop foi desenvolvida em **Java** para garantir segurança e exclusividade:
-  - Apenas máquinas autorizadas poderão acessar o serviço.
-  - Operações de visualização e edição de dados serão realizadas exclusivamente via chamadas às APIs.
-- O sistema desktop terá acesso direto às APIs para operações críticas, como criação e atualização de campos no banco de dados.
+2. **Criação e Atribuição de Tarefas (Administradores)**
+   - O sistema deve permitir que administradores criem tarefas com um título, descrição, prazo e critérios de prioridade.
+   - O sistema deve permitir que administradores atribuam tarefas a agentes específicos.
+   - O sistema deve permitir que administradores editem ou excluam tarefas criadas.
+
+3. **Acompanhamento de Tarefas (Agentes)**
+   - O sistema deve permitir que agentes visualizem suas tarefas atribuídas, incluindo título, descrição, prazo e status da tarefa.
+   - O sistema deve permitir que agentes alterem o status das tarefas para "em andamento" ou "finalizada".
+   - O sistema deve permitir que agentes adicionem observações ou atualizações durante a execução de tarefas.
+
+4. **Consultas de Indicadores (Agentes)**
+   - O sistema deve permitir que os agentes visualizem indicadores relacionados ao desempenho das tarefas, como número de tarefas em aberto, em andamento e finalizadas.
+
+5. **Autenticação de Usuários**
+   - O sistema deve exigir autenticação por meio de **JWT** (JSON Web Token) para garantir que apenas usuários autenticados possam acessar as APIs e plataformas.
+   - O sistema deve garantir que, após o login, o token JWT seja utilizado para autenticar as requisições feitas aos endpoints da API.
+
+6. **Envio de Arquivos**
+   - O sistema deve permitir que agentes enviem fotos de perfil, com o armazenamento dessas imagens em um diretório público no servidor.
+
+7. **Plataforma Desktop para Administradores**
+   - O sistema deve oferecer uma plataforma desktop desenvolvida em **Java**, acessível por administradores, com funcionalidades de gerenciamento de usuários e tarefas.
+
+8. **Plataforma Mobile para Agentes**
+   - O sistema deve oferecer uma plataforma móvel compatível com **dispositivos Android**, permitindo que os agentes gerenciem suas tarefas de forma prática.
 
 ---
 
-## **Observações**
-1. **Painel Mobile (Agente - Android):**
-   - Requisitos funcionais e não funcionais para o painel de agentes ainda estão em desenvolvimento.
-   - Quando definidos, serão incluídos nesta documentação.
+# Requisitos Não Funcionais
 
-2. **Servidor e Banco de Dados:**
-   - Todas as funcionalidades dependem de integrações com as APIs centralizadas.
-   - O banco de dados foi projetado para armazenar dados de forma eficiente e segura, suportando alto volume de acessos simultâneos.
+1. **Segurança**
+   - O sistema deve garantir que todos os dados sensíveis, como senhas e tokens de autenticação, sejam armazenados e transmitidos de forma segura utilizando técnicas de criptografia adequadas.
+   - O sistema deve garantir a integridade das requisições através de autenticação JWT para proteger os dados trocados entre o front-end e o back-end.
+
+2. **Desempenho**
+   - O sistema deve ser capaz de processar requisições de forma eficiente, com um tempo de resposta para a interface de administração e a interface de agente de, no máximo, **3 segundos** para ações críticas (como criação ou atribuição de tarefas).
+   - O sistema deve ser escalável para suportar um número crescente de usuários simultâneos sem comprometer o desempenho.
+
+3. **Compatibilidade**
+   - A plataforma **desktop** deve ser compatível com as versões mais recentes do sistema operacional **Windows** e **Linux**.
+   - A plataforma **mobile** deve ser compatível com dispositivos Android, nas versões **5.0 (Lollipop)** ou superiores.
+
+4. **Usabilidade**
+   - A interface deve ser intuitiva e de fácil uso, permitindo que tanto administradores quanto agentes realizem suas tarefas com o mínimo de treinamento.
+   - O sistema deve fornecer mensagens claras de erro e sucesso para ações do usuário (ex.: criação de tarefas, login, etc.).
+
+5. **Disponibilidade**
+   - O sistema deve garantir alta disponibilidade, com **99%** de uptime, para garantir o funcionamento contínuo das plataformas de administradores e agentes.
+
+6. **Manutenibilidade**
+   - O código-fonte do sistema deve ser modular e bem documentado, de forma que seja fácil de manter, corrigir erros e adicionar novas funcionalidades no futuro.
+   - O sistema deve permitir a fácil atualização de componentes de software, como APIs e interfaces, sem causar grandes interrupções.
+
+7. **Armazenamento e Backup**
+   - O sistema deve armazenar os dados no banco de dados **PostgreSQL** e garantir backups periódicos para proteger contra perda de dados.
 
 ---
 
 
 >> **Implementações futuras**
->> - Sera adicionado rotas e funcionalidades para criações dos chamados
->> - As apis de filtro de acessos teram funcionalidade para retornar acessos especificos de usuarios e agentes (GET /filtroGeralAgente ,  GET/filterIdAgenteCriado ,  GET /filterLoginAgentes)
->> - Usuarios desativados não poderam atualizar dados com status falso
->> - Adicionar demais rotas para a aplicação mobile 
+>>  Ajusta e melhorias na aplicação serão detalhadas nos diretorios de cada cod da aplicação
+
 
