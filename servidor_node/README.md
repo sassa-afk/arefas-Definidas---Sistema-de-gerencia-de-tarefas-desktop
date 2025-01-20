@@ -29,6 +29,12 @@ O ambiente node será composto por 4 arquivos
   
 ![image](https://github.com/user-attachments/assets/39fed4b2-3679-4132-b730-dc641cfa3c38)
 
+Dentro do serviço Node.js, há uma pasta chamada "publica", destinada ao armazenamento das imagens de perfil dos agentes. Sempre que uma nova imagem for enviada, ela será salva nessa pasta com o nome e o formato especificado, além de ser registrada no banco de dados para associar ao respectivo agente.
+
+Para acessar as imagens, foi criada uma API exclusiva. Quando o agente ou administrador acessar o perfil, a API verificará se há uma imagem associada ao agente no banco de dados. Caso exista, a imagem correspondente será retornada. Se o agente não tiver uma imagem cadastrada, a API retornará uma imagem padrão chamada padrao.png, que também estará armazenada na pasta "publica".
+
+Esse fluxo garante que todos os perfis tenham uma representação visual, seja uma foto personalizada ou a imagem padrão.
+
 ----
 **Instalar dos serviços**
 
