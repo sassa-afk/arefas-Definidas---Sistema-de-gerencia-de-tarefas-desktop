@@ -1,5 +1,7 @@
 **Serviço de api Back End**
 
+Os processos passados abaixo fora desenvolvidos no S.I UbuntoLinux .
+
 A aplicação utiliza uma estrutura baseada em APIs RESTful, com comunicação por meio do protocolo HTTP. A autenticação será realizada com JWT e os métodos POST e GET, desenvolvidos em Node.js.
 
 A aplicação contará com as seguintes dependências e configurações:
@@ -67,8 +69,10 @@ O ambiente node será composto por 4 arquivos
 
  npm install socket.io <br>
 
-- ****
+- **Ativar o serviço**
 
+Apos construir o codigo , completo, inicie o serviço com node server
+  
 ----
 
 **Resumo e motivo do uso das Dependências**
@@ -82,5 +86,19 @@ O ambiente node será composto por 4 arquivos
  - pg: Cliente PostgreSQL para Node.js.
 
 ----
+
+- **Melhorias futuras que serão aplicadas**
+  
+  - 1 - Aplicar paradigmar em orientação objeto na construções das APIs 
+    + separar as apis em 3 classe , Agente/ADM/FUNCAOGERAL/AUDITORIA
+
+  - 2 - Aplicar serviço de mensageria por email atraves do Nodemailer para possibilitar envio de credenciais de email e detalhes para os emais dos agentes
+
+  - 3 - Melhorar auditoria de ações de conexão e solicitações dos serviços da api
+
+  - 4 - Aplicar conexão o serviço de socket IO para monitoramento de acessos dos usuários e novas notificações principalmente de tarefas, principalmente as urgêntes 
+  
+  ----
+
 
 
