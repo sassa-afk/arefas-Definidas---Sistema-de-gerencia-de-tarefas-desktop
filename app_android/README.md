@@ -23,6 +23,11 @@ https://github.com/user-attachments/assets/243236bc-d96a-466c-a9cc-fe24652e0234
 
 
 ----
+**Diagrama de classe da aplicação**
+
+![image](https://github.com/user-attachments/assets/fa2287bb-78fc-4dd6-942c-cb5833ee34e9)
+
+----
 
 **Androi Manifest XML**
 AndroidManifest.xml - Documentação
