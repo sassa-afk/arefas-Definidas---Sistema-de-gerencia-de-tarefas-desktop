@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--    https://fonts.google.com/icons-->
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    <group>
+
+        <item
+            android:id="@+id/perfil"
+            android:title="Meu perfil"
+            android:icon="@drawable/perfil"
+            />
+
+
+        <item
+            android:id="@+id/tarefas"
+            android:title="Tarefas"
+            android:icon="@drawable/tarefas"
+            />
+
+
+
+        <item
+            android:id="@+id/resultados"
+            android:title="Meus indicadores"
+            android:icon="@drawable/resutado"
+             />
+
+        <item
+
+            android:title="Sair"
+            android:id="@+id/logout"
+            android:icon="@drawable/logout"
+            />
+    </group>
+</menu>

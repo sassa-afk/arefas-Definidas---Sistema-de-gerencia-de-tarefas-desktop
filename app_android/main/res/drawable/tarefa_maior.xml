@@ -1,0 +1,8 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <bitmap
+            android:src="@drawable/tarefas"
+             android:width="200dp"
+            android:height="50dp" />
+    </item>
+</layer-list>

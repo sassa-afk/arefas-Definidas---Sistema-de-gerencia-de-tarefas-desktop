@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Tarefas agente</string>
+    <string name="cancel" />
+    <string name="confirmar" />
+</resources>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/descricao_tarefa"
+        android:title="Descrição do chamado"
+        android:icon="@drawable/icon_menu"
+        android:tooltipText="Detalhes da tarefa"
+
+
+        />
+    <item
+        android:id="@+id/atendimento_tarefa"
+        android:title="Registro de atendimentos"
+        android:icon="@drawable/tarefas"
+        android:tooltipText="Descrição das respostas das tarefas"
+
+        />
+
+
+
+</menu>

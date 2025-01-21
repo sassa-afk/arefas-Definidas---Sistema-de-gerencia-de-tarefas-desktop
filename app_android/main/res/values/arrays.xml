@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="spinner_criticidade_tarefa">
+        <item>Todos</item>
+        <item>Baixa</item>
+        <item>Media</item>
+        <item>Alta</item>
+        <item>Urgente</item>
+    </string-array>
+
+
+    <string-array name="spinner_tipo_tarefas">
+         <item>Aberto</item>
+         <item>Validando</item>
+        <item>Atendendo</item>
+    </string-array>
+
+</resources>
+

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/p3"
+    tools:context=".tarefasP2"
+    tools:openDrawer="start"
+    android:background="@color/geral"
+    >
+
+    <!-- ScrollView com conteúdo rolável -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id = "@+id/idLinearLayoutEditarVerPedidos"
+
+      >
+<!--             <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="vertical"-->
+<!--                android:layout_marginTop="0dp"-->
+<!--                 android:background="#4f3993"-->
+<!--                android:padding="16dp"-->
+<!--                 android:id = "@+id/idLinearLayoutEditarVerPedidos"-->
+<!--                 >-->
+
+                <TextView
+                    android:layout_marginTop="150dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Minhas Tarefas"
+                    android:gravity="center"
+                    android:textSize="40sp"
+                    android:textColor="@android:color/white"
+                    />
+
+                <TextView
+
+                    android:layout_marginTop="40dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Status da tarefa : "
+                    android:layout_marginLeft="5dp"
+                    android:textSize="13sp"
+                    android:textColor="@android:color/white"
+                    />
+
+
+                <Spinner
+                    android:textColor="@android:color/white"
+
+                    android:entries="@array/spinner_tipo_tarefas"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="20dp"
+                    android:id="@+id/statusTarefa"/>
+
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Criticidade da tarefa : "
+                    android:layout_marginLeft="5dp"
+                    android:textSize="13sp"
+                    android:textColor="@android:color/white"/>
+
+
+                <Spinner
+                    android:entries="@array/spinner_criticidade_tarefa"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="20dp"
+                    android:id="@+id/criticidadeTarefa"/>
+
+                <Button
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:textColor="@android:color/white"
+                    android:backgroundTint="@color/black"
+                    android:layout_marginTop="20dp"
+                    android:id="@+id/botaoFiltrar"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:text="Aplicar filtro de tarefas"/>
+
+<!--            </LinearLayout>-->
+
+             <View
+                android:layout_marginTop="15dp"
+                android:layout_height="2dp"
+                android:layout_width="match_parent"
+                android:background="@color/white"/>
+
+
+
+
+        </LinearLayout>
+    </ScrollView>
+<!--==========================================================================-->
+     <include layout="@layout/activy_main_content"
+
+         />
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:menu="@menu/drawer_item"
+        app:headerLayout="@layout/header"
+        android:layout_gravity="start"
+        tools:ignore="MissingConstraints"
+        />
+<!--================================================================================-->
+</androidx.drawerlayout.widget.DrawerLayout>
+
