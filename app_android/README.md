@@ -29,7 +29,9 @@ https://github.com/user-attachments/assets/243236bc-d96a-466c-a9cc-fe24652e0234
 ![image](https://github.com/user-attachments/assets/fa2287bb-78fc-4dd6-942c-cb5833ee34e9)
 
 ----
+
 **Layout XML das Paginas**
+
 ![image](https://github.com/user-attachments/assets/f8aa48e4-5cd2-4ccd-a94b-f8c79fbf6b83)
 
 ----
