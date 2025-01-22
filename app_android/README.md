@@ -23,9 +23,14 @@ https://github.com/user-attachments/assets/243236bc-d96a-466c-a9cc-fe24652e0234
 
 
 ----
+
 **Diagrama de classe da aplicação**
 
 ![image](https://github.com/user-attachments/assets/fa2287bb-78fc-4dd6-942c-cb5833ee34e9)
+
+----
+**Layout XML das Paginas**
+![image](https://github.com/user-attachments/assets/f8aa48e4-5cd2-4ccd-a94b-f8c79fbf6b83)
 
 ----
 
@@ -188,4 +193,101 @@ includeSubdomains="true": Aplica as configurações de segurança também aos su
 
 O uso de tráfego de rede sem criptografia (cleartextTrafficPermitted="true") é permitido apenas para os domínios específicos definidos no arquivo. Isso pode ser útil para testes em ambientes locais ou quando não é possível configurar HTTPS.
 Certifique-se de que a configuração de tráfego sem criptografia seja usada apenas para domínios confiáveis e conhecidos, pois ela pode expor os dados transmitidos a interceptações.
+
+Aplicação conta também com o uso de bibliotecas extras e dependecias extras para sua construção sendo elas :
+
+```
+plugins {
+    alias(libs.plugins.android.application)
+}
+
+android {
+    namespace = "com.example.tarefasagente"
+    compileSdk = 34
+
+    defaultConfig {
+        applicationId = "com.example.tarefasagente"
+        minSdk = 24
+        targetSdk = 34
+        versionCode = 1
+        versionName = "1.0"
+
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation ("com.squareup.picasso:picasso:2.71828")
+
+    implementation ("com.github.bumptech.glide:glide:4.12.0")
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.12.0")
+
+    implementation("org.json:json:20210307")
+    implementation(libs.appcompat)
+    implementation(libs.material)
+    implementation(libs.activity)
+    implementation(libs.constraintlayout)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.ext.junit)
+    androidTestImplementation(libs.espresso.core)
+
+
+ }
+
+```
+
+Suas configuções estão disponiveis no arquivo buid do projeto 
+
+![image](https://github.com/user-attachments/assets/1ebe025b-fb81-485a-aad3-a879ddefe8a1)
+
+
+Chamo atenção para algumas cruciais que possibilitam a comunicação entre a aplicação e o servidor api node 
+
+**JSON**
+
+- Versão: 20210307
+- Descrição: Biblioteca para trabalhar com JSON em Java. Ela fornece um conjunto de ferramentas simples para parseamento e criação de objetos JSON.
+- Depedencia :
+```
+    implementation("org.json:json:20210307")
+```
+
+**Glide**
+- Versão: 4.12.0
+- Descrição: Glide é uma poderosa biblioteca de carregamento de imagens, que também suporta animações e transformações de imagens, além de fornecer recursos como cache em memória e disco.
+- Depedencia :
+```
+    implementation("com.github.bumptech.glide:glide:4.12.0")
+```
+- Dependência do Processador de Anotação:
+
+```
+    annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
+```
+
+----
+
+- **Melhorias futuras que serão aplicadas**
+  
+  - 1 - Aplicar na classe processo gerais validação de envio de documentos com extenção png
+  - 2 - Melhorar dados de estaticas da função indicadores podendo filtrar por datas especificas com do dia x ate y e trazer informações robustas como media de atendimento de tarefas , tempo de media ou alguma especifica
+  - 3 - Adicionar a opção de dentro da tarefa do agente a possibilidade de enviar arquivos e imagens para anexar junto a comentarios no chamado
+  - 4 - Aplicar o serviço websockt para apontar notificações de novas tarefas com prioridades urgente e alta
+     
+  
+----
 
