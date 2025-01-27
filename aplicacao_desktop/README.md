@@ -1,0 +1,1 @@
+# Aplicação adm desktop
