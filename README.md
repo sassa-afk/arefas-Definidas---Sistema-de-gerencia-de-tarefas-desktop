@@ -182,12 +182,13 @@ Além disso, foi criada uma pasta pública dentro do diretório, responsável po
 - Segue detalhes sobre as classes , funções , funcionalidade e relações de classes em java para a criação da aplicação desktop no qual o adm ira definir as taredas
 
   
-  ![image](https://github.com/user-attachments/assets/aed775ce-ad7a-4fce-980a-463a0003c1ab)
-- https://drive.google.com/file/d/1_GXcIcqJbEhsc9kr4W4dG6xo7ccff90r/view?usp=sharing
-
+![image](https://github.com/user-attachments/assets/aed775ce-ad7a-4fce-980a-463a0003c1ab)
+  
 ![image](https://github.com/user-attachments/assets/f5491c3b-8aa4-4c26-8dcb-cf28ed81ff72)
 
 ![image](https://github.com/user-attachments/assets/ba98d1b4-31ff-47f4-8284-eb7093e8ffa5)
+
+- https://drive.google.com/file/d/1_GXcIcqJbEhsc9kr4W4dG6xo7ccff90r/view?usp=sharing
 
 ---
 ***Diagrama de Arquitetura de Software***
@@ -196,10 +197,12 @@ Além disso, foi criada uma pasta pública dentro do diretório, responsável po
 
 
 ---
+
 ***Diagrama caso de classe / mobile em java / android***
 ![image](https://github.com/user-attachments/assets/fa2287bb-78fc-4dd6-942c-cb5833ee34e9)
 
 https://drive.google.com/file/d/17_dhg15zWB3SF4T2c4X0m8JFkCet1Hmg/view?usp=sharing
+
 ---
 
 ## **Requisitos Funcionais**
